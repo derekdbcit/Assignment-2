@@ -1,4 +1,4 @@
-const mainDiv = document.querySelector(".main");
+const mainDiv = document.querySelector(".main"); // Queries any page's main div
 
 var contactList = [
     {
@@ -17,23 +17,24 @@ var contactList = [
 
 function cleanUpIndex() {
 
-    let children = mainDiv.children
+    let children = mainDiv.children // Gets a list of the main div's children
 
-    for (let i=0; i < children.length + 1; i++) {
+    for (let i=0; i < children.length + 1; i++) { // Parses and removes each child
         children[i].remove()
     }
 
-    while (mainDiv.lastChild) {
+    while (mainDiv.lastChild) { // Removes the last child, where it wasn't parsed in the for loop
         mainDiv.lastChild.remove();
     }
 }
 
 
 function createSingleIndex(contact) {
+
     let n = document.createElement("a"),
     t = document.createElement("div");
 
-    return (
+    return ( // Stacks relevant attributes to element n and div t
         n.href="page3.html",
         t.classList.add("contact"), 
         t.innerHTML=contact.name,
@@ -44,7 +45,7 @@ function createSingleIndex(contact) {
 
 function renderIndex(contacts) {
     
-    for(let i = 0; i < contacts.length; i++ ) {
+    for(let i = 0; i < contacts.length; i++ ) { // Parses through and renders each contact card
         mainDiv.insertAdjacentHTML (
             "beforeend", 
             `<a href="page3.html">

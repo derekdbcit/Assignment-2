@@ -1,12 +1,12 @@
 const mainDiv = document.querySelector(".main"); // Queries any page's main div
 
-var contactList = [
+let contactList = [
     {
       name: "Roberta Dobbs",
       phone: "778-555-1234",
       address: "101 Main St, Anytown, USA",
       email: "subgenius@slack.example.com",
-    }, 
+    },
     {
       name: "Bugs Bunny",
       phone: "123-867-5309",
@@ -15,58 +15,40 @@ var contactList = [
     },
 ]
 
-function cleanUpIndex() {
-
-    let children = mainDiv.children // Gets a list of the main div's children
-
-    for (let i=0; i < children.length + 1; i++) { // Parses and removes each child
-        children[i].remove()
-    }
-
-    while (mainDiv.lastChild) { // Removes the last child, where it wasn't parsed in the for loop
-        mainDiv.lastChild.remove();
+function removeAllChildren() {
+    while (mainDiv.lastChild) {
+        mainDiv.lastChild.remove()
     }
 }
 
-
 function createSingleIndex(contact) {
 
-    let n = document.createElement("a"),
+    let n = document.createElement("a");
+    let p = document.createElement("p");
     t = document.createElement("div");
 
-    return ( // Stacks relevant attributes to element n and div t
-        n.href="page3.html",
-        t.classList.add("contact"), 
-        t.innerHTML=contact.name,
-        n.append(t),
-        n
-    );
+    n.href="page3.html",
+    t.classList.add("contact"),
+    t.append(p), 
+    p.innerHTML=contact.name,
+    n.append(t)
+
+    n.addEventListener("click", (e) => {
+        e.preventDefault();
+        for (let i = 0; i < contactList.length; i++) {
+            if (p.innerHTML == contactList[i].name) {
+                removeAllChildren();
+                renderView(contactList[i]);
+            }
+        }
+    })
+    return (n);
 }
 
 function renderIndex(contacts) {
     
-    for(let i = 0; i < contacts.length; i++ ) { // Parses through and renders each contact card
-        mainDiv.insertAdjacentHTML (
-            "beforeend", 
-            `<a href="page3.html">
-                <div class="contact">
-                    <p>${contacts[i].name}</p>
-                </div>
-            </a>`
-        );
-    }
-}
-
-function cleanUpView() {
-
-    let children = mainDiv.children
-
-    for (let i=0; i < children.length + 1; i++) {
-        children[i].remove()
-    }
-
-    while (mainDiv.lastChild) {
-        mainDiv.lastChild.remove();
+    for(let i = 0; i < contacts.length; i++ ) {
+        mainDiv.appendChild(createSingleIndex(contactList[i])) // Parses through and renders each contact card
     }
 }
 
@@ -88,19 +70,7 @@ function renderView(contact) {
             </div>
         </div>`
     );
-}
 
-function cleanUpCreate() {
-
-    let children = mainDiv.children
-
-    for (let i=0; i < children.length + 1; i++) {
-        children[i].remove()
-    }
-
-    while (mainDiv.lastChild) {
-        mainDiv.lastChild.remove();
-    }
 }
 
 function renderCreate() {
@@ -141,5 +111,84 @@ function renderCreate() {
             </div>
         </div>`
     );
+
+    const saveButton = document.querySelector("#savecontact");
+
+    saveButton.addEventListener("click", (e) => {
+
+        e.preventDefault();
+        var contactName = document.getElementById("contactname");
+        var contactPhone = document.getElementById("contactphone");
+        var contactAddress = document.getElementById("contactaddress");
+        var contactEmail = document.getElementById("contactemail");
+        console.log(contactName)
+
+        contactList.push({
+            name: contactName,
+            phone: contactPhone,
+            address: contactAddress,
+            email: contactEmail,
+        })
+    })
 }
 
+// Event Listeners for Lab 11
+
+// 10 
+
+renderIndex(contactList);
+
+// 2
+
+const contactHome = document.querySelector("#contactshome");
+
+contactHome.addEventListener("click", (e) => {
+    removeAllChildren();
+    renderIndex(contactList);
+    e.preventDefault();
+
+})
+
+// 3
+
+const newContact = document.querySelector("#newcontact");
+
+newContact.addEventListener("click", (e) => {
+    removeAllChildren();
+    renderCreate();
+    e.preventDefault();
+
+})
+
+// 4
+
+const contactElements = document.querySelector(".nav-home")
+
+contactElements.addEventListener("click", createSingleIndex)
+
+/*
+
+// 5
+
+const closeContact = document.querySelector(".close");
+
+closeContact.addEventListener("click", (e) => {
+    removeAllChildren();
+    renderIndex(contactList);
+
+})
+
+// 7
+
+const closeCreate = document.querySelector(".cancel");
+
+closeCreate.addEventListener("click", (e) => {
+    removeAllChildren();
+    renderIndex(contactList);
+    e.preventDefault()
+
+})
+
+*/
+
+// 8

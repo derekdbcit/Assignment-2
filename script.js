@@ -1,39 +1,49 @@
 const mainDiv = document.querySelector(".main"); // Queries any page's main div
 
+// Lab 11 #1
+
 let contactList = [
     {
-      name: "Roberta Dobbs",
+      name: "Mr Ditkovich",
       phone: "778-555-1234",
-      address: "101 Main St, Anytown, USA",
-      email: "subgenius@slack.example.com",
+      address: "101 Main St, New York City, USA",
+      email: "ditkovich@rent.example.com",
     },
     {
-      name: "Bugs Bunny",
+      name: "Mr Aziz",
       phone: "123-867-5309",
-      address: "Warner Brothers Animation Lot",
-      email: "whatsup@doc.example.com",
+      address: "Joe's 29 Minute Guarantee Pizza",
+      email: "aziz@pizza.gOoOoOo.com",
     },
+    {
+      name: "Bonesaw",
+      phone: "100-100-3000",
+      address: "$3000 For 3 Minutes in the Ring Stadium",
+      email: "bonesaw@isready.example.com",
+    }
 ]
 
-function removeAllChildren() {
+function removeAllChildren() { // Clear main div
     while (mainDiv.lastChild) {
-        mainDiv.lastChild.remove()
+        mainDiv.lastChild.remove();
     }
 }
 
-function createSingleIndex(contact) {
+function createSingleIndex(contact) { // Creates single card for the index page
 
     let n = document.createElement("a");
     let p = document.createElement("p");
     t = document.createElement("div");
 
-    n.href="page3.html",
-    t.classList.add("contact"),
-    t.append(p), 
-    p.innerHTML=contact.name,
-    n.append(t)
+    n.href="page3.html";
+    t.classList.add("contact");
+    t.append(p);
+    p.innerHTML=contact.name;
+    n.append(t);
 
-    n.addEventListener("click", (e) => {
+    // Lab 11 #4 (View)
+
+    n.addEventListener("click", (e) => { // Creates the view for the appropriate card
         e.preventDefault();
         for (let i = 0; i < contactList.length; i++) {
             if (p.innerHTML == contactList[i].name) {
@@ -48,7 +58,7 @@ function createSingleIndex(contact) {
 function renderIndex(contacts) {
     
     for(let i = 0; i < contacts.length; i++ ) {
-        mainDiv.appendChild(createSingleIndex(contactList[i])) // Parses through and renders each contact card
+        mainDiv.appendChild(createSingleIndex(contactList[i])); // Parses through and renders each contact card on the Index page
     }
 }
 
@@ -112,33 +122,36 @@ function renderCreate() {
         </div>`
     );
 
-    const saveButton = document.querySelector("#savecontact");
+    // Lab 11 #8
 
-    saveButton.addEventListener("click", (e) => {
+    const saveButton = document.querySelector("#savecontact"); // Queries the save button
 
+    saveButton.addEventListener("click", (e) => { // Takes in input for creating a new contact, pushes it to contactList
+
+        var contactName = document.getElementById("contactname").value;
+        var contactEmail = document.getElementById("contactemail").value;
+        var contactPhone = document.getElementById("contactphone").value;
+        var contactAddress = document.getElementById("contactaddress").value;
         e.preventDefault();
-        var contactName = document.getElementById("contactname");
-        var contactPhone = document.getElementById("contactphone");
-        var contactAddress = document.getElementById("contactaddress");
-        var contactEmail = document.getElementById("contactemail");
-        console.log(contactName)
+
+        // Lab 11 #9
 
         contactList.push({
             name: contactName,
+            email: contactEmail,
             phone: contactPhone,
             address: contactAddress,
-            email: contactEmail,
         })
     })
 }
 
 // Event Listeners for Lab 11
 
-// 10 
+// Lab 11 #10 
 
 renderIndex(contactList);
 
-// 2
+// Lab 11 #2
 
 const contactHome = document.querySelector("#contactshome");
 
@@ -149,7 +162,7 @@ contactHome.addEventListener("click", (e) => {
 
 })
 
-// 3
+// Lab 11 #3
 
 const newContact = document.querySelector("#newcontact");
 
@@ -160,35 +173,34 @@ newContact.addEventListener("click", (e) => {
 
 })
 
-// 4
+// Lab 11 #4 (Index Page)
 
-const contactElements = document.querySelector(".nav-home")
+const contactElements = document.querySelector(".nav-home"); // Queries the index cards
 
-contactElements.addEventListener("click", createSingleIndex)
+contactElements.addEventListener("click", createSingleIndex);
 
-/*
+// The scripts seems to
 
-// 5
+// Lab 11 #5
 
-const closeContact = document.querySelector(".close");
+const closeContact = document.querySelector(".close"); // Returns null, no way to fix
 
 closeContact.addEventListener("click", (e) => {
     removeAllChildren();
     renderIndex(contactList);
+    e.preventDefault();
 
 })
 
-// 7
+// Lab 11 #6 - Edit button does not do anything.
 
-const closeCreate = document.querySelector(".cancel");
+// Lab 11 #7
+
+const closeCreate = document.querySelector(".cancel"); // Returns null, no way to fix
 
 closeCreate.addEventListener("click", (e) => {
     removeAllChildren();
     renderIndex(contactList);
-    e.preventDefault()
+    e.preventDefault();
 
 })
-
-*/
-
-// 8
